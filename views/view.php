@@ -51,6 +51,7 @@ class View
 
 
   private function generateFile($file, $data){
+    $file;
     if (file_exists($file)) {
       extract($data);
 

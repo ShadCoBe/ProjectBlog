@@ -8,7 +8,9 @@ class Article
 
     // Headers dans la base
     private $_id;
+    private $_author;
     private $_title;
+    private $_chapo;
     private $_content;
     private $_date;
 
@@ -53,11 +55,26 @@ class Article
         }
     }
 
+    public function setAuthor($author)
+    {
+        if(is_string($author)){
+            $this->_author = $author;
+        }
+    }
+
+    public function setChapo($chapo)
+    {
+        if(is_string($chapo)){
+            $this->_chapo = $chapo;
+        }
+    }
+
     public function setDate($date)
     {
         $this->_date= $date;
     }
 
+  
     //getters
 
     public function id()
@@ -75,10 +92,22 @@ class Article
         return $this->_content;
     }
 
+    public function author()
+    {
+        return $this->_author;
+    }
+
+    public function chapo()
+    {
+        return $this->_chapo;
+    }
+
     public function date()
     {
         return $this->_date;
     }
+
+
     
 }
 
