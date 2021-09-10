@@ -6,7 +6,7 @@
     //Fonction de récupération de tous les articles dans base
 
     public function getArticles(){
-      // Essayer avec self:: pour voir :)
+      
         return $this->getAll('articles', 'Article');
 
     }      
@@ -17,6 +17,10 @@
     
     public function createArticle(){
       return $this->createOne('articles', 'Article');
+    }
+
+    public function deleteArticle($id){
+      return $this->DeleteOne('articles', 'Article', $id);
     }
 
   }

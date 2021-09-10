@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -26,22 +27,19 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto py-4 py-lg-0">
-
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post&create">Ajouter un poste</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="accueil">Accueil</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">Mon CV</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post&connexion">Se connecter</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact.html">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post.html">A propos</a></li>
+                        
                     </ul>
                 </div>
             </div>
         </nav>
- 
-        <?= $content ?>
+  
+        <?=$content?>
 
-
-          <!-- Footer-->
-
-          <footer class="border-top">
+        <!-- Footer-->
+        <footer class="border-top">
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
@@ -70,16 +68,7 @@
                                     </span>
                                 </a>
                             </li>
-                            <li class="list-inline-item">
-                                <a href="post&admin">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fas fa-circle fa-stack-2x"></i>
-                                        <i class="fas fa-user-shield fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
                         </ul>
-                        
                         <div class="small text-center text-muted fst-italic">Copyright &copy; Mon blog 2021</div>
                     </div>
                 </div>
@@ -88,8 +77,8 @@
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
-        <script src="public/js/scripts.js"></script>
+        <script src="js/scripts.js"></script>
+
     </body>
 </html>
-
 
