@@ -7,7 +7,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Mon Blog PHP</title>
-        <link rel="icon" type="image/x-icon" href="public/assets/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="public/assets/knlogo.ico" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->

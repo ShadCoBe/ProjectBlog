@@ -6,7 +6,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Mon Blog PHP</title>
-        <link rel="icon" type="image/x-icon" href="public/assets/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="public/assets/knlogo.ico" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->
@@ -62,16 +62,16 @@
                             <!-- To make this form functional, sign up at-->
                             <!-- https://startbootstrap.com/solution/contact-forms-->
                             <!-- to get an API token!-->
-                            <form action="post&connexion=user" method="post" id="contactForm">
+                            <form action="post&user" method="post" id="contactForm">
                              
                                 <div class="form-floating">
-                                    <input class="form-control" id="email" type="email" placeholder="Entrer votre email..." data-sb-validations="required,email" />
+                                    <input class="form-control" id="email" name="email" type="email" placeholder="Entrer votre email..." data-sb-validations="required,email" required/>
                                     <label for="email">Votre adresse email</label>
                                     <div class="invalid-feedback" data-sb-feedback="email:required">l'email est requis.</div>
                                     <div class="invalid-feedback" data-sb-feedback="email:email">Email non valide.</div>
                                 </div>
                                 <div class="form-floating">
-                                    <input class="form-control" id="pw" type="password" placeholder="Entrer votre mot de passe..." data-sb-validations="required" />
+                                    <input class="form-control" id="pw" name="pw" type="password" placeholder="Entrer votre mot de passe..." data-sb-validations="required" required/>
                                     <label for="phone">Mot de passe</label>
                                     <div class="invalid-feedback" data-sb-feedback="phone:required">Le mot de passe est requis.</div>
                                 </div>

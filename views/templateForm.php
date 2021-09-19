@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
-	<link rel="icon" type="image/png" href="public/contact_form/images/icons/favicon.ico"/>
+	<link rel="icon" type="image/png" href="public/contact_form/images/icons/knlogo.ico"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="public/contact_form/vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->

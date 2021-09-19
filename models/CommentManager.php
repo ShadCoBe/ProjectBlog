@@ -9,8 +9,6 @@
 
     }    
     
-
-     
     public function createComment($id){
 
       return $this->createOneComment('comments', 'Comment', $id);
@@ -27,7 +25,11 @@
       return $this->DeleteOne('comments', 'Comment', $id);
     }
 
-  
+
+    public function ajaxCommentOne($postid, $comauthor,  $comcontent){
+      return $this->ajaxComment('comments', $postid, $comauthor,  $comcontent);
+    }
+
 
 
   }

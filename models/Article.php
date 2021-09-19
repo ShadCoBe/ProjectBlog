@@ -12,6 +12,7 @@ class Article
     private $_title;
     private $_chapo;
     private $_content;
+    private $_image;
     private $_date;
 
 
@@ -69,6 +70,15 @@ class Article
         }
     }
 
+
+    public function setImage($image)
+    {
+        if(is_string($image)){
+            $this->_image = $image;
+        }
+    }
+
+
     public function setDate($date)
     {
         $this->_date= $date;
@@ -101,6 +111,12 @@ class Article
     {
         return $this->_chapo;
     }
+
+    public function image()
+    {
+        return $this->_image;
+    }
+
 
     public function date()
     {

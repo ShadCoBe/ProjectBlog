@@ -11,21 +11,21 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="public/js/scripts.js"></script>
 <link href="public/css/adminstyles.css" rel="stylesheet" />
-
-  
+ 
   <body>
     <div class="container">
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-6">
-						<h2>Gestion des <b>commentaires</b></h2>
+						<h2>Gestion des <b>utilisateurs</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<!--<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Ajouter un nouvel article</span></a>-->
+					<a href="post&admin" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xe0b7;</i> <span>Revenir et afficher les articles</span></a>				
 						<!--<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Supprimer un article</span></a>-->	
-						<a href="post&admin" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xe0b7;</i> <span>Revenir et afficher les articles</span></a>				
+						<!--<a href="#" class="btn btn-warning" data-toggle="modal"><i class="material-icons">&#xe0b7;</i> <span>Afficher les commentaires</span></a>-->			
 			
 					</div>
                 </div>
@@ -39,20 +39,21 @@
 								<label for="selectAll"></label>
 							</span> -->
 						</th>
-                        <th>ID commentaire</th>
-                        <th>Auteur</th>
-						<th>Contenu du commentaire</th>
-                        <th>Validé ?</th>
-                        <th>Date de publication</th>
-						<th>Action</th>
-                        
+                        <th>ID</th>
+                        <th>Nom</th>
+						<th>Nom utilisateur</th>
+                        <th>Email</th>			
+						<th>Date inscription</th>
+						<th>Permission</th>
+						<th>Action sur permission</th>
+						
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
 						
 					<?php
-                      foreach ($comments as $comment):
+                      foreach ($users as $user):
                     ?>
 						<td>
 
@@ -61,26 +62,24 @@
 								<input type="checkbox" id="checkbox1" name="options[]" value="1">
 								<label for="checkbox1"></label>
 							</span> -->
-						    <a href="<?= $comment->id() ?>" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Commentaire">&#xe7ff;</i></a>
+						    <a href="post&edituser=<?= $user->id() ?>" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Visualiser les articles de l'utilisateur">&#xe7ff;</i></a>
 						</td>
-                        <td><?= $comment->id() ?></td>
-                        <td><?= $comment->author() ?></td>
-						<td><?= $comment->content() ?></td>
-                        <td><?= $comment->validation() ?></td>
-                        <td><?= $comment->date() ?></td>
-                  
-                        
-                    
-
+                        <td><?= $user->id() ?></td>
+                        <td><?= $user->username() ?></td>
+						<td><?= $user->usersname() ?></td>
+                        <td><?= $user->email() ?></td>
+						<td><?= $user->date_inscription()?></td>
+						<td><b><?= $user->permission()?></b></td>
+						
                         <td>
-                            <a href="post&validation=<?= $comment->id() ?>" class="validate" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Valider">&#xe834;</i></a>
-							
+                            <!--<a href="#editEmployeeModal" data-id="<?= $user->id() ?>" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Editer">&#xE254;</i></a>-->
+							<a href="#editmodal" class="edit editbtnuser" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Editer">&#xE254;</i></a>
+
+
+
                             <!--<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>-->
-							
-							<!--checker si l'utilisateur a des droits (1) pour accéder à la vue admin user-->
-						    <?php if($_SESSION['permission']==1){$adminlink='post&permission';}else{$adminlink='#';}?>
-							<a href="post&deletecom=<?= $comment->id() ?>" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Supprimer">&#xE872;</i></a>
-						  
+							 <a href="post&riduser=<?= $user->id() ?>" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Supprimer">&#xE872;</i></a>
+						    <!--<a href="#deleteEmployeeModal" data-id="<?= $user->id() ?>" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Supprimer">&#xE872;</i></a>-->
                         
 						</td>
                     </tr>
@@ -104,65 +103,51 @@
             </div>
         </div>
     </div>
+
 	<!-- Edit Modal HTML -->
-	<div id="addEmployeeModal" class="modal fade">
+	<div id="editmodal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form method="POST" action="post&adcreate">
+				<form method="POST" name="editForm" id="editForm" action="post&updateuser">
 					<div class="modal-header">						
-						<h4 class="modal-title">Ajouter un nouvel article</h4>
+						<h4 class="modal-title">Utilisateur </h4><label name="labelid" id="labelid"></label>
+						
+						<i class="material-icons" data-toggle="tooltip" title="Editer">&#xe7ff;</i></a>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
-					<div class="modal-body">					
+					<div class="modal-body">
+
+					    <input type="hidden"  name="id" id="id" class="form-control" required>
+
+
 						<div class="form-group">
-							<label>Intitulé article</label>
-							<input type="text" name="title" class="form-control" required>
+							<label name= "username" id="username"></label>
 						</div>
 						<div class="form-group">
-							<label>Sous-titre</label>
-							<input type="text" name="sub-title" class="form-control" required>
+							<label name= "useremail" id="useremail"></label>
 						</div>
-						<div class="form-group">
-							<label>Contenu</label>
-							<textarea class="form-control" name="content" rows="10" required></textarea>
+
+                        <div class="form-group">
+						<label name="permission" id="permission">Permission => </label>
+							<select name="list-permission" id="list-permission">
+							    <option value="user">Utilisateurs 0</option>
+								<option value="admin">Administrateurs 2</option>
+							</select>
+
 						</div>
-							
-					</div>
-					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Annuler">
-						<input type="submit" class="btn btn-success" value="Ajouter">
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-	<!-- Edit Modal HTML -->
-	<div id="editEmployeeModal" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<form>
-					<div class="modal-header">						
-						<h4 class="modal-title">Modifier un article</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body">					
-						<div class="form-group">
-							<label>Intitulé article</label>
-							<input type="text" class="form-control" required>
-						</div>
-						<div class="form-group">
-							<label>Sous-titre</label>
-							<input type="text" class="form-control" required>
-						</div>
-						<div class="form-group">
-							<label>Contenu</label>
-							<textarea class="form-control"  rows="10" required></textarea>
-						</div>
+
+						<br>
+						<br>
+
+							<p><b> Les administrateurs </b> (permission => 2) peuvent ajouter,modifier, supprimer ou commenter un article.</p>
+                            <p><b> Les utilisateurs </b> (permission => 0) peuvent seulement commenter un article.</p>
+							<p><b> Le super administrateur </b> (permission => 1) peut ajouter, modifier, supprimer, commenter un article + supprimer ou modifier les comptes utilisateurs.</p>
+						
 				
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Quitter">
-						<input type="submit" class="btn btn-info" value="Enregistrer">
+						<input type="submit"  class="btn btn-info" name="updatedata" value="Enregistrer">
 					</div>
 				</form>
 			</div>
@@ -172,7 +157,7 @@
 	<div id="deleteEmployeeModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form method="POST" action="post&delete">
+				<form method="POST" action="post&deleteuser">
 					<div class="modal-header">						
 						<h4 class="modal-title">Supprimer un article</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -183,7 +168,7 @@
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Annuler">
-						<input type="submit" class="btn btn-danger" value="Supprimer">
+						<input type="submit" id="modalDelete" class="btn btn-danger" value="Supprimer">
 					</div>
 				</form>
 			</div>

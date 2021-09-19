@@ -23,10 +23,12 @@
       return $this->DeleteOne('articles', 'Article', $id);
     }
 
+
+    public function editArticle($id){
+      return $this->editOne('articles','Article', $id);
+    }
+
   }
-  
-  
-  
-  
+    
   
   ?>

@@ -33,35 +33,6 @@ window.addEventListener('DOMContentLoaded', () => {
 function postAjaxCom(){
 
 
-    //let searchParams = new URLSearchParams(window.location.search);
-    //let param = searchParams.has('post&id');
-
-    //console.log(param);
-
-    // console.log(window.location.href);
-
-
-    // var getUrlParameter = function getUrlParameter(sParam) {
-    //     var sPageURL = window.location.search.substring(1),
-    //         sURLVariables = sPageURL.split('&'),
-    //         sParameterName,
-    //         i;
-    
-    //     for (i = 0; i < sURLVariables.length; i++) {
-    //         sParameterName = sURLVariables[i].split('=');
-    
-    //         if (sParameterName[0] === sParam) {
-    //             return typeof sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
-    //         }
-    //     }
-        
-    // };
-
-    // var post = getUrlParameter('post');
-
-    // console.log(post);
-
-
     // Create our XMLHttpRequest object
     var hr = new XMLHttpRequest();
     // Create some variables we need to send to our PHP file
@@ -100,6 +71,80 @@ function postAjaxCom(){
 }
 
 
+
+
+//Modal de modification d'un article (Vue admin)
+$(document).ready(function(){
+    $('.editbtn').on('click', function(){
+
+        $('#editmodal').modal('show');
+
+        $tr = $(this).closest('tr');
+        var data = $tr.children("td").map(function(){
+            return $(this).text();
+
+        }).get();
+
+        console.log(data);
+
+        $('#id').val(data[1]);
+        $('#name-user').val(data[2]);
+        $('#title-edit').val(data[3]);
+        $('#sub-title-edit').val(data[4]);
+        $('#content-edit').val(data[5]);
+       
+      
+
+
+        document.getElementById('id').innerHTML = data[1];
+        document.getElementById('labelid').innerHTML = data[1];
+
+
+
+    });
+
+});
+
+
+
+//Modal de gestion des utilisateurs
+$(document).ready(function(){
+    $('.editbtnuser').on('click', function(){
+
+        $('#editmodal').modal('show');
+
+        $tr = $(this).closest('tr');
+        var data = $tr.children("td").map(function(){
+            return $(this).text();
+
+        }).get();
+
+        console.log(data);
+
+      
+        $('#sub-title-edit').val(data[4]);
+        $('#content-edit').val(data[5]);
+        $('#id').val(data[1]);
+
+
+        document.getElementById('id').innerHTML = data[1];
+        document.getElementById('labelid').innerHTML = data[3];
+        document.getElementById('username').innerHTML = "Nom utilisateur => <b>"+ data[2]+"</b>";
+        document.getElementById('useremail').innerHTML = "Email utilisateur => <b>"+ data[4] +"</b>";
+
+
+
+    });
+
+});
+
+
+
+        
+
+
+
+
 //Ajouté par kéké
 $(document).ready(function(){
 	// Activate tooltip
@@ -124,8 +169,6 @@ $(document).ready(function(){
 		}
 	});
 });
-
-
 
 
 

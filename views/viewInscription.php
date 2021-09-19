@@ -28,6 +28,7 @@
 <div class="my-5">
                             
                             <form method="post" action="post&send=new"  id="contactForm">
+                                
 
                                 <div class="form-floating">
                                     <input class="form-control" name="name" type="text" placeholder="Enter votre nom..." required/>
@@ -48,15 +49,16 @@
                                     <div class="invalid-feedback" data-sb-feedback="email:email">Email non valide.</div>
                                 </div>
                                 <div class="form-floating">
-                                    <input class="form-control" name="pw" type="password" placeholder="Entrer votre mot de passe..." data-sb-validations required />
+                                    <input class="form-control" id="pw" name="pw" type="password" onkeyup="check()" placeholder="Entrer votre mot de passe..." data-sb-validations required />
                                     <label for="password">Votre mot de passe</label>
                                     <div class="invalid-feedback" data-sb-feedback="password:required">Le mot de passe est requis.</div>
                                 </div>
                                 <div class="form-floating">
-                                    <input class="form-control" name="pwcon" type="password" placeholder="Entrer votre mot de passe..." data-sb-validations required />
+                                    <input class="form-control" id="pwcon" name="pwcon" type="password" onkeyup="check()"; placeholder="Entrer votre mot de passe..." data-sb-validations required />
                                     <label for="confpassword">Confirmer votre mot de passe</label>
                                     <div class="invalid-feedback" data-sb-feedback="confpassword:required">La confirmation de votre mot de passe est requise.</div>
                                 </div>
+                                <p id="message"></p>
 
 
                                 <br/>
@@ -71,10 +73,17 @@
                                 <br />
                                 <br />
 
+
+
                                 
                                 
                             
                                 <button id="submitButton" class="btn btn-primary btn-lg" type="submit">S'inscrire</button>
+                                <!--<script src = 'https: //www.google.com/recaptcha/api.js' async defer>
+                                <div class = "g-recaptcha" data-sitekey = "6LftWWAcAAAAAJaoU9yhkzz66wcadm5kZdJxgIay">
+                                    secret key 6LftWWAcAAAAACmfgxDZbYo_F8j-Hvwb4qMcii6i-->
+
+
                             </form>
 
                            
@@ -89,6 +98,7 @@
                              <P> Déja inscrit ?<span>&#8594;</span><a href="post&connexion"><b>  Je me connecte </b></a></p>  
                              
                              
+                             
 
 
                             </div>
@@ -97,3 +107,5 @@
                 </div>
             </div>
         </main>
+
+        <script src="public/js/scripts.js"></script>

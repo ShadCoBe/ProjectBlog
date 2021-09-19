@@ -43,6 +43,25 @@ abstract class Model
 
         }
 
+
+        protected function getAllUsers($table, $obj)
+       {
+        $this -> getBdd();
+        $var = [];
+        $req = self::$_bdd->prepare("SELECT * FROM ".$table." ORDER BY id desc");
+        $req->execute();
+
+        //variable data pour les données
+        while ($data = $req->fetch(PDO::FETCH_ASSOC)){
+            //Transformer les données sous forme d'objets
+            $var[] = new $obj($data);
+        }
+
+        return $var;
+        $req->closeCursor();
+
+        }
+
         // Ajouter par Hamoud 
         protected function getAllComments($table, $obj, $id,$argadm)
         {
@@ -50,7 +69,7 @@ abstract class Model
           $var = [];
           $req = self::$_bdd->prepare("SELECT " .$table. ".id, id_article," .$table. ".content, " .$table. ".author, validation, DATE_FORMAT( " .$table. ".date, '%M %d, %Y à %Hh%i') AS date
                                        FROM comments INNER JOIN articles ON " .$table. ".id_article = articles.id
-                                        where ".$argadm."  id_article = ?");
+                                        where ".$argadm."  id_article = ? ORDER BY id desc");
           $req->execute(array($id));
  
            //variable data pour les données
@@ -74,7 +93,7 @@ abstract class Model
         {
           $this->getBdd();
           $var = [];
-          $req = self::$_bdd->prepare("SELECT id, title, content, author, chapo,
+          $req = self::$_bdd->prepare("SELECT id, title, content, author, chapo, image,
                                        DATE_FORMAT(date, '%M %d, %Y à %Hh%i') 
                                        AS date FROM " .$table. " WHERE id = ?");
           $req->execute(array($id));
@@ -93,13 +112,22 @@ abstract class Model
         protected function createOne($table, $obj)
         {
           $this->getBdd();
-          $req = self::$_bdd->prepare("INSERT INTO ".$table." (title, content,chapo,author, date) 
+
+          $req = self::$_bdd->prepare("INSERT INTO ".$table." (title, content, chapo, author, date) 
                                       VALUES (?, ?, ?, ?, ?)");
-          $req->execute(array($_POST['title'], $_POST['content'],$_POST['sub-title'],'Knouz', date('Y-m-d H:i:s')));
-    
+
+
+          $req->execute(array(htmlspecialchars($_POST['title']), htmlspecialchars($_POST['content']),htmlspecialchars($_POST['sub-title']),$_SESSION['usersname'],
+           date('Y-m-d H:i:s')));
+
+
       
           $req->closeCursor();
         }
+
+
+    
+
 
         // Ajouté par Kéké 
         protected function DeleteOne($table, $obj,$id)
@@ -107,7 +135,8 @@ abstract class Model
           $this->getBdd();
           $req = self::$_bdd->prepare("DELETE FROM ".$table." WHERE id = ?");
           $req->execute(array($id));
-    
+
+
       
           $req->closeCursor();
         }
@@ -119,7 +148,7 @@ abstract class Model
           $this->getBdd();
           $req = self::$_bdd->prepare("INSERT INTO ".$table." (id_article, author,content, date, validation) 
                                       VALUES (?, ?, ?, ?, ?)");
-          $req->execute(array($_POST['id'], 'Knouz', $_POST['content'], date('Y-m-d H:i:s'), 0));
+          $req->execute(array($_POST['id'], $_SESSION['usersname'], $_POST['content'], date('Y-m-d H:i:s'), 0));
     
       
           $req->closeCursor();
@@ -132,11 +161,13 @@ abstract class Model
         // Ajouté par Kéké 
         protected function createNewUser($table, $obj)
         {
+
+          $password_hash = password_hash($_POST['pw'], PASSWORD_DEFAULT, ['cost'=> 10]);
           
           $this->getBdd();
           $req = self::$_bdd->prepare("INSERT INTO ".$table." ( username,usersname, email, userpassword, date_inscription) 
                                       VALUES (?, ?, ?, ?, ?)");
-          $req->execute(array( $_POST['name'], $_POST['usersname'],$_POST['email'],$_POST['pw'], date('Y-m-d H:i:s')));
+          $req->execute(array( htmlspecialchars($_POST['name']),htmlspecialchars($_POST['usersname']),htmlspecialchars($_POST['email']),$password_hash, date('Y-m-d H:i:s')));
       
           $req->closeCursor();
         }
@@ -154,6 +185,133 @@ abstract class Model
       
           $req->closeCursor();
         }
+
+
+         // Ajouté par Kéké 
+         protected function editOne($table, $obj, $id)
+         
+         {
+           
+           
+           $this->getBdd();
+           $req = self::$_bdd->prepare("UPDATE ".$table." SET title='".htmlspecialchars($_POST['title-edit'])."',chapo='".
+                                       htmlspecialchars($_POST['sub-title-edit'])."',
+                                       content='".htmlspecialchars($_POST['content-edit']).
+                                        "', date= now() WHERE id = ?");
+      
+           
+           $req->execute(array($id));
+     
+       
+           $req->closeCursor();
+         }
+
+
+         
+         // Ajouté par Kéké 
+         protected function editOneUser($table, $obj, $id)
+         
+         {           
+           $this->getBdd();
+
+           if($_POST['list-permission']=="user"){ 
+              $user_permission = 0;
+
+           }else{
+              $user_permission = 2;
+
+           }
+
+           $req = self::$_bdd->prepare("UPDATE ".$table." SET permission= ".$user_permission." WHERE id = ?");
+
+           $req->execute(array($id));
+
+           
+      
+    
+      
+          $req->closeCursor();
+        }
+
+      
+         
+ 
+
+        // Ajouté par Kéké 
+        protected function register($table, $obj)
+        {
+          $var = [];
+          
+          $this->getBdd();
+
+
+          $login_secured=addslashes($_POST['email']);
+
+
+
+          $req = self::$_bdd->prepare("SELECT * FROM ".$table." WHERE email = ? ");
+          $req->execute(array($login_secured));
+
+          while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+            $var[] = new $obj($data);
+          }
+
+
+
+    
+
+         
+          
+      
+          return $var;
+
+          $req->closeCursor();
+        }
+
+
+        // Vérifier si l'email existe dans la base
+        protected function checkUserEmail($table, $header)
+        {
+
+          $this->getBdd();
+          $query =self::$_bdd->prepare( "SELECT ".$header." FROM ".$table." WHERE email =  ?" );
+          
+          $query->execute(array(htmlspecialchars($_POST['email'])));
+          $found = $query->fetchColumn();
+
+          return $found;
+          $req->closeCursor();
+
+        }
+        
+
+       
+        
+
+
+
+
+
+
+          // Ajouté par Kéké 
+          protected function ajaxComment($table, $postid, $comauthor,  $comcontent)
+          {
+            
+            $this->getBdd();
+            $req = self::$_bdd->prepare("INSERT INTO ".$table." (id_article, author,content, date) 
+            VALUES (?, ?, ?, ?)");
+            $req->execute(array($postid, $comauthor,  $comcontent, date('Y-m-d H:i:s'))); 
+
+        
+            $req->closeCursor();
+          }
+  
+
+
+
+
+
+
 
   
 

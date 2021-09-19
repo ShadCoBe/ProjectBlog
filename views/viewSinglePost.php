@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,8 +22,25 @@
                     <ul class="navbar-nav ms-auto py-4 py-lg-0">
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post&create">Ajouter un poste</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">Mon CV</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post&connexion">Se connecter</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact.html">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contactus">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post&connexion"><?php 
+                           
+                           
+                           if (isset($_SESSION['usersname'])){
+                            echo '<span> &#128151 </span>';
+                            
+                            echo $_SESSION['usersname'];
+
+                            echo ' <i class="fas fa-sign-out-alt"></i>';
+
+
+                           }else{
+                            echo "Se connecter";
+                            
+                           }
+                
+                            ?></a></li>
+          
                     </ul>
                 </div>
             </div>

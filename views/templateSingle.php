@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
     <body>
@@ -16,8 +17,9 @@
 
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post&create">Ajouter un poste</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">Mon CV</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post&contact">Contact</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post&connexion">Se connecter</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact.html">Contact</a></li>
+                        
 
                     </ul>
                 </div>
@@ -35,6 +37,7 @@
                                 Posté par
                                 <a href="#!"><?=$article[0]->author() ?></a> 
                                 en <?=$article[0]->date() ?>
+                               
                             </span>
                         </div>
                     </div>

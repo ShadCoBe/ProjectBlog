@@ -1,11 +1,15 @@
 <?php
 
+session_start();
+
+
     // Ajouté par kéké
    //Il s'agit d'un code provisoire a tester Ajax.
    //Il convient par la suite de connecter cette page avec le model du MVC inchaAllah
    // 
 
-
+   if(isset($_SESSION['username']))
+   { 
 
         
         $url = $_SERVER['HTTP_REFERER'];
@@ -13,20 +17,12 @@
 
 
         $postid=$param[1];
-        $comcontent =$_POST['comcontent'];
-        $comauthor ='knouz';
+        $comcontent =htmlspecialchars($_POST['comcontent']);
+        $comauthor =$_SESSION['usersname'];
 
         //Obtenir l'url courante entière
         //echo $_SERVER['REQUEST_URI'];
-        
-        //Obtenir l'url précédente entière
-        //echo $_SERVER['HTTP_REFERER'];
-
-        //echo $postid;
-        //echo $comcontent;
-        //echo $comauthor;
-
-
+       
 
        
                 $bdd = new PDO('mysql:host=localhost; dbname=blog_kz; charset=utf8','root','');
@@ -47,8 +43,14 @@
 
 
         
-          echo '<p><b> Knouz, votre message a bien été envoyé pour validation. Merci </b> <span> &#128521 </span></p> ';
+          echo '<p><b> Votre message a bien été envoyé pour validation. Merci </b> <span> &#128521 </span></p> ';
     
+    }else{
+
+          echo '<p><b> Vous n\'êtes pas connecté. Authentifier vous pour poster un commentaire </b>
+          <a href="post&connexion">Je me connecte maintenant</a>  =>  </p> ';
+    
+    }
 
 
 ?>

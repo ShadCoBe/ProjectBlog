@@ -44,6 +44,38 @@ class View
     echo $view;
   }
 
+
+  //générer la vue utilisateur
+  public function generateAdminUsers($data){
+    //définir le contenu à envoyer
+    
+    $content = $this->generateFile($this->_file, $data);
+
+    
+
+    //template
+    $view = $this->generateFile('views/templateAdminUser.php', array('t' => $this->_t, 'content' => $content,'comment' => $data_com));
+    echo $view;
+  }
+
+
+  //générer la vue contact
+  public function generateContact(){
+
+      //définir le contenu à envoyer
+      $content = $this->generateFileSimple($this->_file);
+
+      //template
+      $view = $this->generateFile('views/templateContact.php', array('t' => $this->_t, 'content' => $content));
+      echo $view;
+    }
+  
+  
+
+
+
+
+
   //générer la vue du formulaire
   //de création d'un article
   public function generateForm(){
@@ -66,13 +98,6 @@ class View
     echo $view;
   }
   
-
-
-
-
-
-
-
 
   public function generateinscription(){
     //définir le contenu à envoyer

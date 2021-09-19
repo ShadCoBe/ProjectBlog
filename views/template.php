@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -6,7 +8,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Mon Blog PHP</title>
-        <link rel="icon" type="image/x-icon" href="public/assets/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="public/assets/knlogo.ico" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->
@@ -27,10 +29,17 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto py-4 py-lg-0">
 
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post&create">Ajouter un poste</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">Mon CV</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post&connexion">Se connecter</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact.html">Contact</a></li>
+
+                    <?php if(isset($_SESSION['permission'])>0){$adminlink='post&admin';}else{$adminlink="post&connexion";}?>
+                    <?php if (isset($_SESSION['usersname'])){$icon = '<span> &#128151 </span>';$user =  $_SESSION['usersname'];$icon2=  ' <i class="fas fa-sign-out-alt"></i>';}else{$icon = '';$user =  "Se connecter";$icon2= '';}?>
+
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href=<?php echo $adminlink ?>>Ajouter un poste</a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">Mon CV</a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post&contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post&connexion"><?php echo $icon;echo $user;echo $icon2 ?></a></li>
+                      
+                        
+                        
                     </ul>
                 </div>
             </div>
@@ -71,7 +80,10 @@
                                 </a>
                             </li>
                             <li class="list-inline-item">
-                                <a href="post&admin">
+
+
+                                 <!--checker si l'utilisateur a des droits (1,2) pour accéder à la vue admin-->
+                                <a href=<?php echo $adminlink ?>>
                                     <span class="fa-stack fa-lg">
                                         <i class="fas fa-circle fa-stack-2x"></i>
                                         <i class="fas fa-user-shield fa-stack-1x fa-inverse"></i>
